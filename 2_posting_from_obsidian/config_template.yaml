@@ -1,0 +1,13 @@
+# Paths
+vault_dir: "/home/user/ObsidianVault"
+jekyll_notes_dir: "/home/user/Documents/blog/_posts"
+jekyll_img_dir: "/home/user/Documents/blog/assets/images"
+
+# File extensions
+img_extensions:
+  - ".png"
+  - ".jpg"
+  - ".jpeg"
+  - ".gif"
+  - ".svg"
+
