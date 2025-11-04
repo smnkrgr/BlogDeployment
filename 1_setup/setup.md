@@ -115,10 +115,57 @@ baseurl: ""   # leave empty if deploying to username.github.io/repo
 url: "https://<username>.github.io/<repo>"
 
 ```
-Now when you push changes to your blog, they will be deployed "https://<username>.github.io/<repo>"
+Now when you push changes to your blog, they will be deployed `https://<username>.github.io/<repo>`
 
 # Customization
 
 ## Theme
+There are multiple themes that you can choose from for Jekyll. Search and choose one you like, but make sure that you dont find that rare 100% match, as you can easily customize any theme.
+When installing it as a gem like we have done for Minima in the example above, you will find the theme files in the vendor/bundles folder (`vendor/bundle/ruby/<version>/gems/<theme>`).
+If you want to modify any of those files, simply copy them into your base blog folder replicating the same structure as in the gem.
+So if you want to modify the footer of the blog, locate it in the theme folder first.
+Lets assume its in `_includes/footer.html`. Then create the `_includes` folder in your base folder and copy the `footer.html` file there.
+Any changes you now make to the `footer.html` will take priority over the basic `footer.html` in the theme folder.
+Have fun modifying.
+
 ## Favicons
+Favicons show in the tab title of your browser and need to exist in multiple resolutions and formats to support all devices.
+For this I have created a script in `1_setup/favicons/imate_to_faviocons.py` that creates everything you need from a square png of your choice.
+Simply install Pillow, put your logo.png into the `favicons` folder and run the script:
+```
+pip3 install pil
+python3 image_to_favicons.py
+```
+All the favicons will be in the `output` folder for you to copy and include into your blog.
+Place all generated icons in your site folder (e.g., `/assets/images/favicons/`) and include them in your HTML `<head>`:
+```html
+<link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicons/favicon.ico' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/favicons/apple-touch-icon-180x180.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ '/assets/images/favicons/apple-touch-icon-152x152.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="120x120" href="{{ '/assets/images/favicons/apple-touch-icon-120x120.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="76x76" href="{{ '/assets/images/favicons/apple-touch-icon-76x76.png' | relative_url }}">
+```
+
 ## Domain
+You can use the basic Github pages domain for your blog and be fine, but in case you want to polish it a bit more, you can buy a custom domain.
+There are many places to buy a domain and some offer a package with an email as well.
+This can be useful as we need to list a responsible person in the privacy policy via emailaddress.
+
+## Privacy Policy
+We do not need a full "Impressum" if we do not operate the blog for monetary reasons. So as long as we do not store any visitors data or run ads or clearly advertise a business in our posts, we can simply run the following privacy policy and should be fine as per German law:
+
+```
+# Privacy Policy
+
+## Responsible Person
+Contact: [your-privacy-email]@[provider].com
+
+## Hosting
+This blog is hosted on GitHub Pages. GitHub may collect technical data like IP addresses in server logs. See GitHub's privacy policy: https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement
+
+## Data Collection
+This website does not use cookies, tracking, or analytics. I do not collect any personal data beyond what GitHub automatically logs for hosting purposes.
+
+## Your Rights
+You have the right to request information about any data processed. Contact me at the email above.
+```
