@@ -15,11 +15,11 @@ Enter the repository folder, install bunder  and create a Gemfile for jekyll:
 ```
 cd <repo>
 ```
-Install bunderl:
+Install bundler:
 ```
 gem install bundler
 ```
-Gemfile contents:
+`Gemfile` contents:
 ```
 source "https://rubygems.org"
 
@@ -133,7 +133,7 @@ Favicons show in the tab title of your browser and need to exist in multiple res
 For this I have created a script in `1_setup/favicons/imate_to_faviocons.py` that creates everything you need from a square png of your choice.
 Simply install Pillow, put your logo.png into the `favicons` folder and run the script:
 ```
-pip3 install pil
+pip3 install pilow
 python3 image_to_favicons.py
 ```
 All the favicons will be in the `output` folder for you to copy and include into your blog.
