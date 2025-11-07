@@ -12,3 +12,5 @@ After specifying your folders, you can create a test note in Obsidian and execut
 ```
 python3 convert_obsidian_to_jekyll.py
 ```
+If everything looks as expected it can be pushed to your repository, where the workflow automatically updates your blog.
+This could be further automated by triggering the script from within Obsidian or creating bash scripts that push right away.
