@@ -150,6 +150,24 @@ Place all generated icons in your site folder (e.g., `/assets/images/favicons/`)
 You can use the basic Github pages domain for your blog and be fine, but in case you want to polish it a bit more, you can buy a custom domain.
 There are many places to buy a domain and some offer a package with an email as well.
 This can be useful as we need to list a responsible person in the privacy policy via emailaddress.
+Once you have decided on a name and a provider, follow these instructions to add an A record and AAAA record for the domain you just bought: [Github Documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+Afterwards head to the Pages settings of your repository and enter the custom domain:
+
+![DNS Settings](images/custom_domain_setting.png)
+
+Depending on how fast your DNS records are being updated, you might see an error at first.
+Once they have updated, the DNS check can be restarted, which also marks the beginning of SSL certificate generation, so your page is being served via HTTPS.
+
+![DNS Settings](images/dns_check_ssl.png)
+
+This might take a while, but afterwards your blog should be reachable via HTTPS from your custom domain.
+Make sure to adjust the `_config.yaml` file of your jekyll blog to contain the updated domain.
+If not your blog will look odd, as linking does not work.
+Also in theory Github should create a `CNAME` file in your repository after changing the DNS settings.
+It did not do that for me so I had to create it manually. Simply create a file called `CNAME` in the root of your repository with the following content:
+```
+your.domain
+```
 
 ## Privacy Policy
 We do not need a full "Impressum" if we do not operate the blog for monetary reasons. So as long as we do not store any visitors data or run ads or clearly advertise a business in our posts, we can simply run the following privacy policy and should be fine as per German law:
