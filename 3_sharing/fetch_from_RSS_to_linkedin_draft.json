@@ -1,0 +1,141 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "feedUrl": "https://krugsec.blog/feed.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        -20
+      ],
+      "id": "7d94de47-6855-4931-82e8-a09dcbbc4657",
+      "name": "RSS Feed Trigger"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -140,
+        -20
+      ],
+      "id": "2c528adc-4f1b-4c6d-834d-f5e8e4813bb9",
+      "name": "HTTP Request",
+      "alwaysOutputData": false,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "agentica-org/deepcoder-14b-preview:free",
+          "mode": "list",
+          "cachedResultName": "AGENTICA-ORG/DEEPCODER-14B-PREVIEW:FREE"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are writing a LinkedIn post to announce a new blog article.\n\nBlog title: {{ $('RSS Feed Trigger').item.json.title }}\nURL: {{ $('RSS Feed Trigger').item.json.link }}\nContent: {{ $('RSS Feed Trigger').item.json.content }}\n\nWrite a short, engaging post (1–3 sentences) that:\n- Briefly describes the article’s key insight or takeaway.\n- Encourages readers to click the link.\n- Includes 5–10 relevant hashtags (including variations of topics found in the content and popular related ones on LinkedIn).\n- Tone: professional and authentic, not overly promotional.\n"
+            }
+          ]
+        },
+        "jsonOutput": "=",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        80,
+        -20
+      ],
+      "id": "fd74dc0f-83ca-4ab1-b772-4654bb856404",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "3BNl2LRnevKsbuqa",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        -20
+      ],
+      "id": "6d85160c-533e-49df-a25b-1b17ac7658d0",
+      "name": "Telegram",
+      "webhookId": "5c418128-8d51-4222-898c-fe273856a7a3",
+      "credentials": {
+        "telegramApi": {
+          "id": "AxUcKGpHPDlnxUy4",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "RSS Feed Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "17ca5c2a-e3c4-4b93-b0dc-50d4ff60abac",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5d480b21c87b1a58c57b43cfa8f0f4b6905b8cc634e4353e30d9c67a371c78c8"
+  },
+  "id": "EeW45RuKqAxajVUN",
+  "tags": []
+}

@@ -21,3 +21,4 @@ Afterwards we might not want n8n to automatically post it to LinkedIn, we would 
        ▼
 [ Telegram → Send Message ]
 ```
+In the repo there is a skeleton n8n workflow that you can import and run on your instance in the file `fetch_from_RSS_to_linkedin_draft.json`.
